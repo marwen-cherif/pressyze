@@ -52,6 +52,8 @@ public class FactResponse {
 	
 	private long denials;
 
+	private long spams;
+	
 	private String date;
 	
 	@XmlElement
@@ -116,6 +118,16 @@ public class FactResponse {
 	public void setDenials(long denials) {
 		this.denials = denials;
 	}
+
+	@XmlElement
+	public long getSpams() {
+		return spams;
+	}
+
+	public void setSpams(long spams) {
+		this.spams = spams;
+	}
+	
 	
 	
 }

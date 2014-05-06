@@ -109,18 +109,22 @@ public class FactResource {
 
 				int nbConf = fact.getConfirmation().getCheckers().size();
 				int nbDnl = fact.getDenial().getDeniers().size();
-				int all = nbConf + nbDnl;
+				int nbSpm = fact.getSpam().getDenouncers().size();
+				
+				int all = nbConf + nbDnl + nbSpm;
 
 				// Calcul des pourcentages
 				if (all != 0) {
 
 					fr.setConfirmations((nbConf * 100) / all);
 					fr.setDenials((nbDnl * 100) / all);
+					fr.setSpams((nbSpm * 100) / all);
 
 				} else {
 
-					fr.setConfirmations(50);
-					fr.setDenials(50);
+					fr.setConfirmations(33);
+					fr.setDenials(33);
+					fr.setSpams(33);
 
 				}
 

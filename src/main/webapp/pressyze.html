@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pressyze</title>
+<!-- Encodage utilisé par le projet Pressyze -->
+<meta charset="UTF-8">
+<!--
+            Ajout du viewport pour permettre a cette page d'adopter le concept de responsive designe
+            consultable sur plusieurs type de matériel (device)
+        -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Ajout des composants du framework CSS Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"
+	type="text/css">
+<link href="pressyze/pressyze-style.css" rel="stylesheet"
+	type="text/css">
+
+<!-- Les librairies Javascript utilisées -->
+<script src="bootstrap/js/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Angular version 1.2.16 -->
+<!--
+        <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-touch.min.js"></script>
+        -->
+<!-- 
+            Composants bootstrap réalisés par l'AngularUI Team 
+            Pour plus d'infos : http://angular-ui.github.io/bootstrap/
+        
+             <script src="bootstrap/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+             <script src="bootstrap/js/pressyze.js"></script>
+        -->
+
+
+
+</head>
+<body>
+	<div id="chart">
+		<div id="confirmation_deny_block">
+			<table>
+				<tr>
+					<td><h5>Confirmation</h5></td>
+				</tr>
+				<tr>
+					<td><span id="confirmation_value">2.000.000</span></td>
+				</tr>
+				<tr>
+					<td><h5>Reniement</h5></td>
+				</tr>
+				<tr>
+					<td><span id="deny_value">30.000</span></td>
+				</tr>
+				<tr>
+					<td><h5>Spam</h5></td>
+				</tr>
+				<tr>
+					<td><span id="spam_value">200</span></td>
+				</tr>
+			</table>
+		</div>
+		<div id="chart_bar01" class="badge">01</div>
+		<div id="chart_bar02" class="badge">01</div>
+		<div id="chart_bar03" class="badge">01</div>
+		<div id="chart_bar04" class="badge">01</div>
+		<div id="chart_bar05" class="badge">01</div>
+		<div id="chart_bar06" class="badge">01</div>
+		<div id="chart_bar07" class="badge">01</div>
+		<div id="chart_bar08" class="badge">01</div>
+		<div id="chart_bar09" class="badge">01</div>
+		<div id="chart_bar10" class="badge">01</div>
+		<div id="chart_bar11" class="badge">01</div>
+		<div id="chart_bar12" class="badge">01</div>
+		<div id="chart_bar13" class="badge">01</div>
+		<div id="chart_bar14" class="badge">01</div>
+		<div id="chart_bar15" class="badge">01</div>
+		<div id="chart_bar16" class="badge">01</div>
+		<div id="chart_bar17" class="badge">01</div>
+		<div id="chart_bar18" class="badge">01</div>
+		<div id="chart_bar19" class="badge">01</div>
+		<div id="chart_bar20" class="badge">01</div>
+		<div id="chart_bar21" class="badge">01</div>
+		<div id="chart_bar22" class="badge">01</div>
+		<div id="chart_bar23" class="badge">01</div>
+		<div id="chart_bar24" class="badge">01</div>
+	</div>
+	<header id="header">
+		<div class="row nopadding">
+			<div class="col-md-3 nopadding">LOGO</div>
+			<div class="col-md-3 nopadding"
+				style="margin-top: 10px !important; margin-right: 5px !important;">
+				<div class="input-group">
+					<span class="input-group-addon">Nom d'utilisateur </span> <input
+						type="text" class="form-control" placeholder="Nom d'utilisateur">
+				</div>
+			</div>
+			<div class="col-md-3 nopadding"
+				style="margin-top: 10px !important; margin-right: 5px !important;">
+				<div class="input-group">
+					<span class="input-group-addon">Mot de passe</span> <input
+						type="password" class="form-control" placeholder="Mot de passe">
+				</div>
+			</div>
+			<div class="col-md-2 nopadding"
+				style="margin-top: 10px !important; margin-right: 5px !important;">
+				<button type="button" class="btn btn-primary btn-sm">Se
+					connecter</button>
+			</div>
+
+		</div>
+		Qu'eSt Ce qUi sE <i>paSsE</i> oU QUe S'<i>eSt</i>-iL <i>paSsé</i> En
+		Tunisie ?
+	</header>
+	<div id="container">
+
+
+		<div id="content" class="row">
+			<div id="tunisie_block" class="span5"></div>
+			<div id="events_block" class="span7">
+				<div id="analyse_block">
+
+					<div class="row nopadding">
+						<div class="col-md-5 nopadding">
+							<div class="input-group">
+								<span class="input-group-addon">Date d&eacute;but</span> <input
+									type="date" class="form-control">
+							</div>
+						</div>
+						<div class="col-md-5 nopadding">
+							<div class="input-group">
+								<span class="input-group-addon">Date fin</span> <input
+									type="date" class="form-control">
+							</div>
+						</div>
+
+
+					</div>
+					<div class="row nopadding" style="margin-top: 10px !important;">
+						<div class="col-md-5 nopadding">
+							<select>
+								<option>Tous les faits</option>
+								<option>Evenement 1</option>
+								<option>Evenement 2</option>
+							</select>
+						</div>
+						<div class="col-md-5 nopadding">
+							<button type="button" class="btn btn-primary btn-sm">Lancer
+								la requête</button>
+						</div>
+					</div>
+
+				</div>
+				<div id="events_stream">
+					<div class="container">
+
+						<!-- //////////////////////////////////////////////////////////////////////////////////////////-->
+						<!-- ///////////////////////////// EVENT ITEMS BEGIN HERE   ///////////////////////////////////-->
+						<!-- //////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+						<!-- ///////////////////////////// DEBUT FAIT   ///////////////////////////////////-->
+						<div class="row nopadding">
+
+							<span class="col-md-3 nopadding"><img src="icons/user.png"
+								alt="" /><span class="value bold">Username</span></span> <span
+								class="col-md-2 nopadding"><span class="value">05/05/2014</span></span>
+							<span class="col-md-2 nopadding"><img
+								src="icons/confirmation.png" alt="" /><span class="value">167800
+									Conf.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/denial.png" alt="" /><span class="value">789000
+									Den.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/spam.png" alt="" /><span class="value">30000
+									Spam.</span></span>
+
+						</div>
+						<div class="row nopadding">
+							<span class="col-md-1 nopadding"><img
+								src="icons/point-right.png" alt="" /></span> <span
+								class="col-md-11 nopadding"><span class="value bold">Fait</span></span>
+						</div>
+						<div class="row nopadding">
+							<div class="well well-large col-md-12">welcome ...</div>
+						</div>
+						<div class="row nopadding">
+							<div class="col-md-2 nopadding">
+								<button type="button" class="btn btn-primary btn-xs">Reactions</button>
+							</div>
+
+							<div class="col-md-10 nopadding">
+								<div class="progress">
+									<div class="progress-bar progress-bar-success"
+										style="width: 60%">
+										<span class="sr-only">60% Complete (success)</span>
+									</div>
+									<div class="progress-bar progress-bar-warning"
+										style="width: 30%">
+										<span class="sr-only">30% Complete (warning)</span>
+									</div>
+									<div class="progress-bar progress-bar-danger"
+										style="width: 10%">
+										<span class="sr-only">10% Complete (danger)</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- ///////////////////////////// FIN FAIT   ///////////////////////////////////-->
+
+
+
+						<!-- ///////////////////////////// DEBUT FAIT   ///////////////////////////////////-->
+						<div class="row nopadding">
+
+							<span class="col-md-3 nopadding"><img src="icons/user.png"
+								alt="" /><span class="value bold">Username</span></span> <span
+								class="col-md-2 nopadding"><span class="value">05/05/2014</span></span>
+							<span class="col-md-2 nopadding"><img
+								src="icons/confirmation.png" alt="" /><span class="value">167800
+									Conf.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/denial.png" alt="" /><span class="value">789000
+									Den.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/spam.png" alt="" /><span class="value">30000
+									Spam.</span></span>
+
+						</div>
+						<div class="row nopadding">
+							<span class="col-md-1 nopadding"><img
+								src="icons/point-right.png" alt="" /></span> <span
+								class="col-md-11 nopadding"><span class="value bold">Fait</span></span>
+						</div>
+						<div class="row nopadding">
+							<div class="well well-large col-md-12">welcome ...</div>
+						</div>
+						<div class="row nopadding">
+							<div class="col-md-2 nopadding">
+								<button type="button" class="btn btn-primary btn-xs">Reactions</button>
+							</div>
+
+							<div class="col-md-10 nopadding">
+								<div class="progress">
+									<div class="progress-bar progress-bar-success"
+										style="width: 60%">
+										<span class="sr-only">60% Complete (success)</span>
+									</div>
+									<div class="progress-bar progress-bar-warning"
+										style="width: 30%">
+										<span class="sr-only">30% Complete (warning)</span>
+									</div>
+									<div class="progress-bar progress-bar-danger"
+										style="width: 10%">
+										<span class="sr-only">10% Complete (danger)</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- ///////////////////////////// FIN FAIT   ///////////////////////////////////-->
+
+
+
+						<!-- ///////////////////////////// DEBUT FAIT   ///////////////////////////////////-->
+						<div class="row nopadding">
+
+							<span class="col-md-3 nopadding"><img src="icons/user.png"
+								alt="" /><span class="value bold">Username</span></span> <span
+								class="col-md-2 nopadding"><span class="value">05/05/2014</span></span>
+							<span class="col-md-2 nopadding"><img
+								src="icons/confirmation.png" alt="" /><span class="value">167800
+									Conf.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/denial.png" alt="" /><span class="value">789000
+									Den.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/spam.png" alt="" /><span class="value">30000
+									Spam.</span></span>
+
+						</div>
+						<div class="row nopadding">
+							<span class="col-md-1 nopadding"><img
+								src="icons/point-right.png" alt="" /></span> <span
+								class="col-md-11 nopadding"><span class="value bold">Fait</span></span>
+						</div>
+						<div class="row nopadding">
+							<div class="well well-large col-md-12">welcome ...</div>
+						</div>
+						<div class="row nopadding">
+							<div class="col-md-2 nopadding">
+								<button type="button" class="btn btn-primary btn-xs">Reactions</button>
+							</div>
+
+							<div class="col-md-10 nopadding">
+								<div class="progress">
+									<div class="progress-bar progress-bar-success"
+										style="width: 60%">
+										<span class="sr-only">60% Complete (success)</span>
+									</div>
+									<div class="progress-bar progress-bar-warning"
+										style="width: 30%">
+										<span class="sr-only">30% Complete (warning)</span>
+									</div>
+									<div class="progress-bar progress-bar-danger"
+										style="width: 10%">
+										<span class="sr-only">10% Complete (danger)</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- ///////////////////////////// FIN FAIT   ///////////////////////////////////-->
+
+
+						<!-- ///////////////////////////// DEBUT FAIT   ///////////////////////////////////-->
+						<div class="row nopadding">
+
+							<span class="col-md-3 nopadding"><img src="icons/user.png"
+								alt="" /><span class="value bold">Username</span></span> <span
+								class="col-md-2 nopadding"><span class="value">05/05/2014</span></span>
+							<span class="col-md-2 nopadding"><img
+								src="icons/confirmation.png" alt="" /><span class="value">167800
+									Conf.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/denial.png" alt="" /><span class="value">789000
+									Den.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/spam.png" alt="" /><span class="value">30000
+									Spam.</span></span>
+
+						</div>
+						<div class="row nopadding">
+							<span class="col-md-1 nopadding"><img
+								src="icons/point-right.png" alt="" /></span> <span
+								class="col-md-11 nopadding"><span class="value bold">Fait</span></span>
+						</div>
+						<div class="row nopadding">
+							<div class="well well-large col-md-12">welcome ...</div>
+						</div>
+						<div class="row nopadding">
+							<div class="col-md-2 nopadding">
+								<button type="button" class="btn btn-primary btn-xs">Reactions</button>
+							</div>
+
+							<div class="col-md-10 nopadding">
+								<div class="progress">
+									<div class="progress-bar progress-bar-success"
+										style="width: 60%">
+										<span class="sr-only">60% Complete (success)</span>
+									</div>
+									<div class="progress-bar progress-bar-warning"
+										style="width: 30%">
+										<span class="sr-only">30% Complete (warning)</span>
+									</div>
+									<div class="progress-bar progress-bar-danger"
+										style="width: 10%">
+										<span class="sr-only">10% Complete (danger)</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- ///////////////////////////// FIN FAIT   ///////////////////////////////////-->
+
+
+
+
+
+
+						
+
+
+
+
+
+
+
+
+
+
+
+
+						<!-- ///////////////////////////// DEBUT FAIT   ///////////////////////////////////-->
+						<div class="row nopadding">
+
+							<span class="col-md-3 nopadding"><img src="icons/user.png"
+								alt="" /><span class="value bold">Username</span></span> <span
+								class="col-md-2 nopadding"><span class="value">05/05/2014</span></span>
+							<span class="col-md-2 nopadding"><img
+								src="icons/confirmation.png" alt="" /><span class="value">167800
+									Conf.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/denial.png" alt="" /><span class="value">789000
+									Den.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/spam.png" alt="" /><span class="value">30000
+									Spam.</span></span>
+
+						</div>
+						<div class="row nopadding">
+							<span class="col-md-1 nopadding"><img
+								src="icons/point-right.png" alt="" /></span> <span
+								class="col-md-11 nopadding"><span class="value bold">Fait</span></span>
+						</div>
+						<div class="row nopadding">
+							<div class="well well-large col-md-12">welcome ...</div>
+						</div>
+						<div class="row nopadding">
+							<div class="col-md-2 nopadding">
+								<button type="button" class="btn btn-primary btn-xs">Reactions</button>
+							</div>
+
+							<div class="col-md-10 nopadding">
+								<div class="progress">
+									<div class="progress-bar progress-bar-success"
+										style="width: 60%">
+										<span class="sr-only">60% Complete (success)</span>
+									</div>
+									<div class="progress-bar progress-bar-warning"
+										style="width: 30%">
+										<span class="sr-only">30% Complete (warning)</span>
+									</div>
+									<div class="progress-bar progress-bar-danger"
+										style="width: 10%">
+										<span class="sr-only">10% Complete (danger)</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- ///////////////////////////// FIN FAIT   ///////////////////////////////////-->
+
+
+
+						<!-- ///////////////////////////// DEBUT FAIT   ///////////////////////////////////-->
+						<div class="row nopadding">
+
+							<span class="col-md-3 nopadding"><img src="icons/user.png"
+								alt="" /><span class="value bold">Username</span></span> <span
+								class="col-md-2 nopadding"><span class="value">05/05/2014</span></span>
+							<span class="col-md-2 nopadding"><img
+								src="icons/confirmation.png" alt="" /><span class="value">167800
+									Conf.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/denial.png" alt="" /><span class="value">789000
+									Den.</span></span> <span class="col-md-2 nopadding"><img
+								src="icons/spam.png" alt="" /><span class="value">30000
+									Spam.</span></span>
+
+						</div>
+						<div class="row nopadding">
+							<span class="col-md-1 nopadding"><img
+								src="icons/point-right.png" alt="" /></span> <span
+								class="col-md-11 nopadding"><span class="value bold">Fait</span></span>
+						</div>
+						<div class="row nopadding">
+							<div class="well well-large col-md-12">welcome ...</div>
+						</div>
+						<div class="row nopadding">
+							<div class="col-md-2 nopadding">
+								<button type="button" class="btn btn-primary btn-xs">Reactions</button>
+							</div>
+
+							<div class="col-md-10 nopadding">
+								<div class="progress">
+									<div class="progress-bar progress-bar-success"
+										style="width: 60%">
+										<span class="sr-only">60% Complete (success)</span>
+									</div>
+									<div class="progress-bar progress-bar-warning"
+										style="width: 30%">
+										<span class="sr-only">30% Complete (warning)</span>
+									</div>
+									<div class="progress-bar progress-bar-danger"
+										style="width: 10%">
+										<span class="sr-only">10% Complete (danger)</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- ///////////////////////////// FIN FAIT   ///////////////////////////////////-->
+
+
+
+
+						<!-- //////////////////////////////////////////////////////////////////////////////////////////-->
+						<!-- ///////////////////////////// EVENT ITEMS END HERE   ///////////////////////////////////-->
+						<!-- //////////////////////////////////////////////////////////////////////////////////////////-->
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
