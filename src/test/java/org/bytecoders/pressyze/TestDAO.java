@@ -96,7 +96,7 @@ public class TestDAO {
 	}
 	
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testFactDAO() {
 		

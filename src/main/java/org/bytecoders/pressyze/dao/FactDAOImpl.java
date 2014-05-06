@@ -550,6 +550,7 @@ public class FactDAOImpl implements FactDAO {
 
 			Set<User> checkers = new HashSet<User>();
 
+			
 			for (String key : ConfirmationDB.keySet()) {
 
 				DBObject checkerDB = (DBObject) ConfirmationDB.get(key);

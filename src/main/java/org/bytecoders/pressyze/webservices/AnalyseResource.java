@@ -1,4 +1,3 @@
-
 /*
  //	Le présent fichier fait partie du projet PRESSYZE, une application se proposant 
  //	d'encourager le journalisme citoyen et permettant d'avoir une vue globale 
@@ -32,7 +31,7 @@
  //
  //	Maven 3.1 : système de gestion et d'automatisation de production des projets logiciels 
  // Java en général et Java EE en particulier.
-  
+
  //
  */
 package org.bytecoders.pressyze.webservices;
@@ -76,6 +75,9 @@ public class AnalyseResource {
 
 		LOG.debug("Lancement d'une procedure d'analyse en cours ...");
 
+		LOG.debug("startDate : {}, endDate : {}, eventLabel : {}",
+				formatedStartDate, formatedEndDate, eventLabel);
+
 		List<AnalyseResponse> responses = new ArrayList<AnalyseResponse>();
 
 		FactDAO factDAO = new FactDAOImpl();
@@ -86,15 +88,15 @@ public class AnalyseResource {
 
 		try {
 
-			long occurrence = 0; // Nombre d'occurrence de l'évènement ou de
-									// tous les évenements sans distinctions
-									// entre les deux dates
+			long occurrence; // Nombre d'occurrence de l'évènement ou de
+								// tous les évenements sans distinctions
+								// entre les deux dates
 
-			long nbConfirmation = 0; // Nombre de confirmations relatives à ce
-										// ou ces évènements
-			long nbDenial = 0; // Nombre de reniements
-			long nbSpam = 0; // Nombre de déclarations de spam relatives à ces
-								// évènements
+			long nbConfirmation; // Nombre de confirmations relatives à ce
+									// ou ces évènements
+			long nbDenial; // Nombre de reniements
+			long nbSpam; // Nombre de déclarations de spam relatives à ces
+							// évènements
 
 			if (eventLabel.equalsIgnoreCase("all")) {
 
@@ -111,7 +113,7 @@ public class AnalyseResource {
 					nbConfirmation = 0;
 					nbDenial = 0;
 					nbSpam = 0;
-					
+
 					for (Fact fact : factDAO.findAllFacts()) {
 						long factTime = fact.getTimestamp();
 
@@ -146,11 +148,11 @@ public class AnalyseResource {
 					response.setId(city.getId());
 					response.setLabel(city.getLabel());
 					occurrence = 0;
-					
+
 					nbConfirmation = 0;
 					nbDenial = 0;
 					nbSpam = 0;
-					
+
 					for (Fact fact : factDAO.findAllFacts()) {
 						long factTime = fact.getTimestamp();
 
@@ -165,10 +167,15 @@ public class AnalyseResource {
 									.getCheckers().size();
 							nbDenial += fact.getDenial().getDeniers().size();
 							nbSpam += fact.getSpam().getDenouncers().size();
+							
+							LOG.debug("Ville : {}, event : {}, factId : {}", 
+									city.getLabel(), fact.getEvent().getLabel(), fact.getId());
 						}
 
 					}
-
+					
+					LOG.debug("Occur : {}, conf : {}, den {}, spam : {}", occurrence, nbConfirmation, nbDenial, nbSpam);
+					
 					response.setOccurrence(occurrence);
 					response.setNbConfirmation(nbConfirmation);
 					response.setNbDenial(nbDenial);

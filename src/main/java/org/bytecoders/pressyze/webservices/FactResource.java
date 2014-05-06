@@ -75,6 +75,7 @@ public class FactResource {
 	private static final Logger LG = LoggerFactory
 			.getLogger(FactResource.class);
 
+	// URL : http://localhost:9095/Pressyze/rest/facts/{i}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{i}")
@@ -147,7 +148,7 @@ public class FactResource {
 		return factResponses;
 	}
 
-	// URL :
+	// URL : http://localhost:9095/Pressyze/rest/facts/add/{userId}/{eventId}/{description}/{cityId}/{date}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/add/{userId}/{eventId}/{description}/{cityId}/{date}")
