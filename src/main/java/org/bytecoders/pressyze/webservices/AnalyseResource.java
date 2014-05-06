@@ -1,3 +1,4 @@
+
 /*
  //	Le présent fichier fait partie du projet PRESSYZE, une application se proposant 
  //	d'encourager le journalisme citoyen et permettant d'avoir une vue globale 
@@ -17,7 +18,7 @@
  //
  //	Les technologies utilisées sont essentiellement :
  //
- //	AnularJS : un framework JavaScript proposé par Google et présente une méthodologie innovante 
+ //	AngularJS : un framework JavaScript proposé par Google et présente une méthodologie innovante 
  // et adaptée au monde de l'industrie, facilite la réalisation des applications mono-page 
  //	et permet la mise en place de plusieurs patrons de conception dont l'MVC.
  //
@@ -31,6 +32,8 @@
  //
  //	Maven 3.1 : système de gestion et d'automatisation de production des projets logiciels 
  // Java en général et Java EE en particulier.
+  
+ //
  */
 package org.bytecoders.pressyze.webservices;
 
@@ -59,7 +62,8 @@ import org.slf4j.LoggerFactory;
 @Path("/analyse")
 public class AnalyseResource {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AnalyseResource.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(AnalyseResource.class);
 
 	@PermitAll
 	@GET
@@ -82,42 +86,97 @@ public class AnalyseResource {
 
 		try {
 
-			long occurrence = 0;
-			long nbConfirmation = 0;
-			long nbDenial = 0;
-			long nbSpam = 0;
+			long occurrence = 0; // Nombre d'occurrence de l'évènement ou de
+									// tous les évenements sans distinctions
+									// entre les deux dates
 
-			for (City city : cityDAO.findAllCities()) {
-				AnalyseResponse response = new AnalyseResponse();
+			long nbConfirmation = 0; // Nombre de confirmations relatives à ce
+										// ou ces évènements
+			long nbDenial = 0; // Nombre de reniements
+			long nbSpam = 0; // Nombre de déclarations de spam relatives à ces
+								// évènements
 
-				response.setId(city.getId());
-				response.setLabel(city.getLabel());
-				occurrence = 0;
+			if (eventLabel.equalsIgnoreCase("all")) {
 
-				for (Fact fact : factDAO.findAllFacts()) {
-					long factTime = fact.getTimestamp();
+				// Calcul relatif à tous les évènements
 
-					if (factTime >= startTime
-							&& factTime <= endTime
-							&& fact.getCity().getLabel()
-									.equalsIgnoreCase(city.getLabel())
-							&& fact.getEvent().getLabel()
-									.equalsIgnoreCase(eventLabel)) {
-						occurrence++;
-						nbConfirmation += fact.getConfirmation().getCheckers()
-								.size();
-						nbDenial += fact.getDenial().getDeniers().size();
-						nbSpam += fact.getSpam().getDenouncers().size();
+				for (City city : cityDAO.findAllCities()) {
+
+					AnalyseResponse response = new AnalyseResponse();
+
+					response.setId(city.getId());
+					response.setLabel(city.getLabel());
+					occurrence = 0;
+
+					nbConfirmation = 0;
+					nbDenial = 0;
+					nbSpam = 0;
+					
+					for (Fact fact : factDAO.findAllFacts()) {
+						long factTime = fact.getTimestamp();
+
+						if (factTime >= startTime
+								&& factTime <= endTime
+								&& fact.getCity().getLabel()
+										.equalsIgnoreCase(city.getLabel())) {
+							occurrence++;
+							nbConfirmation += fact.getConfirmation()
+									.getCheckers().size();
+							nbDenial += fact.getDenial().getDeniers().size();
+							nbSpam += fact.getSpam().getDenouncers().size();
+						}
+
 					}
 
+					response.setOccurrence(occurrence);
+					response.setNbConfirmation(nbConfirmation);
+					response.setNbDenial(nbDenial);
+					response.setNbSpam(nbSpam);
+
+					responses.add(response);
 				}
 
-				response.setOccurrence(occurrence);
-				response.setNbConfirmation(nbConfirmation);
-				response.setNbDenial(nbDenial);
-				response.setNbSpam(nbSpam);
+			} else {
 
-				responses.add(response);
+				// Calcul relatif à un évènement en particulier
+
+				for (City city : cityDAO.findAllCities()) {
+					AnalyseResponse response = new AnalyseResponse();
+
+					response.setId(city.getId());
+					response.setLabel(city.getLabel());
+					occurrence = 0;
+					
+					nbConfirmation = 0;
+					nbDenial = 0;
+					nbSpam = 0;
+					
+					for (Fact fact : factDAO.findAllFacts()) {
+						long factTime = fact.getTimestamp();
+
+						if (eventLabel.equalsIgnoreCase(fact.getEvent()
+								.getLabel())
+								&& factTime >= startTime
+								&& factTime <= endTime
+								&& fact.getCity().getLabel()
+										.equalsIgnoreCase(city.getLabel())) {
+							occurrence++;
+							nbConfirmation += fact.getConfirmation()
+									.getCheckers().size();
+							nbDenial += fact.getDenial().getDeniers().size();
+							nbSpam += fact.getSpam().getDenouncers().size();
+						}
+
+					}
+
+					response.setOccurrence(occurrence);
+					response.setNbConfirmation(nbConfirmation);
+					response.setNbDenial(nbDenial);
+					response.setNbSpam(nbSpam);
+
+					responses.add(response);
+				}
+
 			}
 
 		} catch (DAOException e) {

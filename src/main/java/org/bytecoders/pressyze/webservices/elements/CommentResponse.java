@@ -36,21 +36,24 @@
   
  //
  */
-package org.bytecoders.pressyze.common;
+package org.bytecoders.pressyze.webservices.elements;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @XmlRootElement
-public class User {
+public class CommentResponse {
 
 	private String id;
 	
-	private String username;
+	private String content;
 	
-	private String password;
+	private int type;
 	
-	private boolean journalist;
+	private FactResponse fact;
+	
+	private UserResponse user;
 
 	@XmlElement
 	public String getId() {
@@ -62,62 +65,39 @@ public class User {
 	}
 
 	@XmlElement
-	public String getUsername() {
-		return username;
+	public String getContent() {
+		return content;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	@XmlElement
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	@XmlElement
-	public boolean isJournalist() {
-		return journalist;
+	public int getType() {
+		return type;
 	}
 
-	public void setJournalist(boolean journalist) {
-		this.journalist = journalist;
+	public void setType(int type) {
+		this.type = type;
 	}
 
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	@XmlElement
+	public FactResponse getFact() {
+		return fact;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public void setFact(FactResponse fact) {
+		this.fact = fact;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password="
-				+ password + ", journalist=" + journalist + "]";
+	@XmlElement
+	public UserResponse getUser() {
+		return user;
+	}
+
+	public void setUser(UserResponse user) {
+		this.user = user;
 	}
 	
 	

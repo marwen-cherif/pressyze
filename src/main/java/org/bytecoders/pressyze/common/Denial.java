@@ -1,4 +1,5 @@
 
+
 /*
  //	Le présent fichier fait partie du projet PRESSYZE, une application se proposant 
  //	d'encourager le journalisme citoyen et permettant d'avoir une vue globale 
@@ -18,7 +19,7 @@
  //
  //	Les technologies utilisées sont essentiellement :
  //
- //	AnularJS : un framework JavaScript proposé par Google et présente une méthodologie innovante 
+ //	AngularJS : un framework JavaScript proposé par Google et présente une méthodologie innovante 
  // et adaptée au monde de l'industrie, facilite la réalisation des applications mono-page 
  //	et permet la mise en place de plusieurs patrons de conception dont l'MVC.
  //
@@ -32,6 +33,8 @@
  //
  //	Maven 3.1 : système de gestion et d'automatisation de production des projets logiciels 
  // Java en général et Java EE en particulier.
+  
+ //
  */
 package org.bytecoders.pressyze.common;
 
