@@ -1,9 +1,6 @@
 pressyze
 ========
 
-L'équipe ByteCoders vous présente le projet PressYze 
-Vous pouvez suivre l'évolution de l'interface de base à l'adresse : http://nabil.zz.mu/pressyze/
-
 Le code source ci-dessus constitue le Module du projet PRESSYZE de l'equipe de développement BYTECODERS : application se proposant d'encourager le journalisme citoyen et de permettre d'avoir une vue globale sur les évènements se déroulant sur le sol tunisien. Ce projet entre dans le cadre du concours de développement Java Developer Challenge organisé par ESPRIT JAVA USER GROUP. Edition 2014.
 
 /*
