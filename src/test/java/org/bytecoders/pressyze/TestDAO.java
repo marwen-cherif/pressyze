@@ -77,12 +77,13 @@ public class TestDAO {
 	}
 	
 	
-	@Ignore @Test public void remove() {
+	@Ignore
+	@Test public void remove() {
 		FactDAO dao = new FactDAOImpl();
 		try {
 			for(Fact f : dao.findAllFacts()) {
 				
-				if(f.getDescription().contains("Description")) {
+				if(f.getDescription().contains("courte")) {
 					P.print("Suppression du fait : " + f.getId());
 					dao.removeFact(f);
 				}
@@ -116,7 +117,7 @@ public class TestDAO {
 	
 	
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testFactDAO() {
 		

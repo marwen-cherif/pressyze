@@ -51,17 +51,31 @@ public class FactResponse {
 	
 	private UserResponse user;
 	
+	private String date;
+	
+	/*
+	 * Contributions des citoyens normaux
+	 */
 	private long confirmations;
 	
 	private long denials;
 
 	private long spams;
 	
-	private String date;
+	
+	
+	/*
+	 * contributions des journalistes 
+	 */
+	private long journalistConfirmations;
+	
+	private long journalistDenials;
+	
+	private long journalistSpams;
 	
 	/*
 	 * ===============================
-	 * Convention de l'equipa ByteCoders :
+	 * Convention de l'equipe ByteCoders :
 	 * 
 	 * 		Permet de connaitre si l'utilisateur courant (partie cliente)
 	 * 		a reagi a ce fait.
@@ -157,7 +171,33 @@ public class FactResponse {
 	public void setReaction(int reaction) {
 		this.reaction = reaction;
 	}
-	
-	
+
+	@XmlElement
+	public long getJournalistConfirmations() {
+		return journalistConfirmations;
+	}
+
+	public void setJournalistConfirmations(long journalistConfirmations) {
+		this.journalistConfirmations = journalistConfirmations;
+	}
+
+	@XmlElement
+	public long getJournalistDenials() {
+		return journalistDenials;
+	}
+
+	public void setJournalistDenials(long journalistDenials) {
+		this.journalistDenials = journalistDenials;
+	}
+
+	@XmlElement
+	public long getJournalistSpams() {
+		return journalistSpams;
+	}
+
+	public void setJournalistSpams(long journalistSpams) {
+		this.journalistSpams = journalistSpams;
+	}
+
 	
 }

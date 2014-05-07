@@ -61,9 +61,21 @@ public class UserResponse {
 		this.username = username;
 	}
 
+	@XmlElement
+	public boolean isJournalist() {
+		return journalist;
+	}
+
+	public void setJournalist(boolean journalist) {
+		this.journalist = journalist;
+	}
+
+
 	private String id;
 	
 	private String username;
+	
+	private boolean journalist = false;
 	
 	
 }

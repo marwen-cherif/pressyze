@@ -64,6 +64,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 //import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -118,16 +119,22 @@ public class FactResource {
 		List<FactResponse> factResponses = new ArrayList<FactResponse>();
 
 		if (index < 0) {
+			
 			LG.debug("L'index doit etre strictement positif");
 			return factResponses;
+			
 		}
 
 		UserDAO userDAO = new UserDAOImpl();
 		User currentUser = null;
 		try {
+			
 			currentUser = userDAO.findUser(userId);
+			
 		} catch (DAOException e1) {
+			
 			e1.printStackTrace();
+			
 		}
 
 		if (currentUser == null) {
@@ -156,35 +163,74 @@ public class FactResource {
 
 		if (factList.size() > start) {
 
+			User reporter;			// Celui qui raporte l'info ...
+			Set<User> checkers;		// Ceux qui ont confirmé ...
+			Set<User> deniers;		// Ceux qui ont renié ...
+			Set<User> denouncers;	// Ceux qui ont dénoncé ...
+
 			for (int i = start; i < factList.size() && i < start + 10; i++) {
 
-				FactResponse fr = new FactResponse();
-				Fact fact = factList.get(i);
+				FactResponse fr 	= new FactResponse();
+				Fact fact 			= factList.get(i);
 
 				fr.setId(fact.getId());
+
 				fr.setEvent(fact.getEvent().getLabel());
 
-				fr.setConfirmations(fact.getConfirmation().getCheckers().size());
-				fr.setDenials(fact.getDenial().getDeniers().size());
-				fr.setSpams(fact.getSpam().getDenouncers().size());
+				checkers 			= fact.getConfirmation().getCheckers();
+
+				deniers 			= fact.getDenial().getDeniers();
+
+				denouncers 			= fact.getSpam().getDenouncers();
+
+				// Contributions de tout le monde
+				fr.setConfirmations(checkers.size());
+				
+				fr.setDenials(deniers.size());
+				
+				fr.setSpams(denouncers.size());
+
+				// Contributions des journalistes
+				fr.setJournalistConfirmations(getJournalistNumber(checkers));
+
+				fr.setJournalistDenials(getJournalistNumber(deniers));
+
+				fr.setJournalistSpams(getJournalistNumber(denouncers));
 
 				fr.setDescription(fact.getDescription());
 
-				UserResponse user = new UserResponse();
-				user.setId(fact.getReporter().getId());
-				user.setUsername(fact.getReporter().getUsername());
+				UserResponse user 	= new UserResponse();
+
+				reporter 			= fact.getReporter();
+
+				user.setId(reporter.getId());
+				
+				user.setUsername(reporter.getUsername());
+				
+				user.setJournalist(reporter.isJournalist());
 
 				fr.setUser(user);
 				fr.setDate(PressyzeUtil.convertTime(fact.getTimestamp()));
 
 				// Gestion des reactions de l'utilisateur courant
-				if (fact.getReporter().equals(currentUser)) {
+				if (fact.getReporter()
+						.equals(currentUser)) {
+					
 					fr.setReaction(FACT_OWNER);
-				} else if (fact.getConfirmation().hasChecker(currentUser)) {
+					
+				} else if (fact.getConfirmation()
+						.hasChecker(currentUser)) {
+					
 					fr.setReaction(FACT_CONFIRMATION);
-				} else if (fact.getDenial().hasDenier(currentUser)) {
+					
+				} else if (fact.getDenial()
+						.hasDenier(currentUser)) {
+					
 					fr.setReaction(FACT_DENIAL);
-				} else if (fact.getSpam().hasDenouncer(currentUser)) {
+					
+				} else if (fact.getSpam()
+						.hasDenouncer(currentUser)) {
+					
 					fr.setReaction(FACT_SPAM);
 				}
 
@@ -198,14 +244,19 @@ public class FactResource {
 	// URL :
 	// http://localhost:9095/Pressyze/rest/facts/add/{userId}/{eventId}/{description}/{cityId}/{date}
 	/**
-	 * Permet d'ajouter un nouveau fait 
+	 * Permet d'ajouter un nouveau fait
 	 * 
-	 * @param userId l' identifiant de celui qui publie le fait
-	 * @param eventId l'identifiant de l'evenement associe
-	 * @param description la description de l'evenement
-	 * @param cityId l'idendifiant de la ville ou s'est deroule l'evenement
-	 * @param date date de l'evenement
-	 * @return true si succes de l'ajout 
+	 * @param userId
+	 *            l' identifiant de celui qui publie le fait
+	 * @param eventId
+	 *            l'identifiant de l'evenement associe
+	 * @param description
+	 *            la description de l'evenement
+	 * @param cityId
+	 *            l'idendifiant de la ville ou s'est deroule l'evenement
+	 * @param date
+	 *            date de l'evenement
+	 * @return true si succes de l'ajout
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -313,6 +364,25 @@ public class FactResource {
 	public String securedMethod(String value) {
 
 		return "securedData";
+	}
+
+	/**
+	 * Permet de recuperer le nombre de journalistes parmi la liste des
+	 * utilisateurs fournie
+	 * 
+	 * @param users
+	 *            la liste des utilisateurs
+	 * @return le nombre de journalistes
+	 */
+	private long getJournalistNumber(Set<User> users) {
+		long counter = 0;
+		for (Iterator<User> userIterator = users.iterator(); userIterator
+				.hasNext();) {
+			if (userIterator.next().isJournalist()) {
+				counter++;
+			}
+		}
+		return counter;
 	}
 
 }
