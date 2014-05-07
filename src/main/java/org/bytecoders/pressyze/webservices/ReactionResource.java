@@ -159,7 +159,7 @@ public class ReactionResource {
 					|| selectedFact.getDenial().hasDenier(actor)
 					|| selectedFact.getSpam().hasDenouncer(actor)) {
 				LG.debug("{} a deja reagi au fait ({}) identifie par {}", actor
-						.getUsername(), verbe(reactionType), selectedFact
+						.getUsername(), selectedFact
 						.getEvent().getLabel(), factId);
 				return response;
 			}
