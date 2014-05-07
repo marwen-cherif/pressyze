@@ -111,27 +111,11 @@ public class FactResource {
 				fr.setId(fact.getId());
 				fr.setEvent(fact.getEvent().getLabel());
 
-				int nbConf = fact.getConfirmation().getCheckers().size();
-				int nbDnl = fact.getDenial().getDeniers().size();
-				int nbSpm = fact.getSpam().getDenouncers().size();
+				fr.setConfirmations(fact.getConfirmation().getCheckers().size());
+				fr.setDenials(fact.getDenial().getDeniers().size());
+				fr.setSpams(fact.getSpam().getDenouncers().size());
 				
-				int all = nbConf + nbDnl + nbSpm;
-
-				// Calcul des pourcentages
-				if (all != 0) {
-
-					fr.setConfirmations((nbConf * 100) / all);
-					fr.setDenials((nbDnl * 100) / all);
-					fr.setSpams((nbSpm * 100) / all);
-
-				} else {
-
-					fr.setConfirmations(33);
-					fr.setDenials(33);
-					fr.setSpams(33);
-
-				}
-
+				
 				fr.setDescription(fact.getDescription());
 
 				UserResponse user = new UserResponse();

@@ -17,6 +17,20 @@ public class FactTest {
 	}
 	
 	
+	@Ignore
+	@Test 
+	public void conf() {
+		
+		try {
+			Fact f = new FactDAOImpl().findFact("139920979634792");
+			
+			P.print("Nb conf : " + f.getConfirmation().getCheckers().size());
+		} catch (DAOException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	//@Ignore
 	@Test 
 	public void testconf() {
 		// recuperer le fait 53661715ea6ad80a64103ab0
@@ -24,13 +38,22 @@ public class FactTest {
 		//dalas confirme le fait 
 		
 		try {
-			Fact f = new FactDAOImpl().findFact("53661715ea6ad80a64103ab0");
+			
+			FactDAO dao = new FactDAOImpl();
+			
+			Fact f = dao.findFact("53661715ea6ad80a64103ab0");
+			
+			P.print("Nb conf avant : " + f.getConfirmation().getCheckers().size());
+			
 			User u = new UserDAOImpl().findUser("" +1);
 			
 			f.getConfirmation().addChecker(u);
 			
-			new FactDAOImpl().updateFact(f);
+			dao.updateFact(f);
 			
+			f = dao.findFact("53661715ea6ad80a64103ab0");
+			
+			P.print("Nb conf apres : " + f.getConfirmation().getCheckers().size());
 			
 		} catch (DAOException e) {
 			

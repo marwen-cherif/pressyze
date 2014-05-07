@@ -77,6 +77,9 @@ public class TestDAO {
 	}
 	
 	
+	
+	
+	
 	@Ignore
 	@Test
 	public void testGetFacts() {
