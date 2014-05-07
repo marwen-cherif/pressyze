@@ -51,6 +51,8 @@ public class CommentResponse {
 	
 	private int type;
 	
+	private boolean valid = false;
+	
 	private FactResponse fact;
 	
 	private UserResponse user;
@@ -99,6 +101,16 @@ public class CommentResponse {
 	public void setUser(UserResponse user) {
 		this.user = user;
 	}
+
+	@XmlElement
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+	
 	
 	
 }

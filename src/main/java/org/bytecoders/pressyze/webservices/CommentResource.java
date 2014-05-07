@@ -86,18 +86,25 @@ public class CommentResource {
 	public CommentResponse retrieveComment(@PathParam("commentId") String commentId) {
 		LG.debug("Recuperation d'une commentaire en cours");
 
-		if (commentId == null || commentId.trim().length() == 0) {
-			LG.debug("L'identifiant fourni est null. Interruption de l'operation.");
-			return null;
+		CommentResponse response = new CommentResponse();
+		
+		if (commentId == null) {
+			LG.debug("L'identifiant fourni ({}) est null. Interruption de l'operation.", commentId);
+			response.setValid(false);
+			return response;
 		}
 
+		if(commentId.trim().isEmpty()) {
+			LG.debug("L'identifiant fourni ({}) est vide. Interruption de l'operation.", commentId);
+			response.setValid(false);
+			return response;
+		}
+		
 		try {
 			final Comment comment = new CommentDAOImpl().findComment(commentId);
 			if (comment != null) {
 
 				LG.debug("Commentaire trouve. Envoi en cours");
-
-				final CommentResponse response = new CommentResponse();
 
 				response.setId(comment.getId());
 				response.setContent(comment.getContent());
@@ -125,7 +132,7 @@ public class CommentResource {
 				response.setUser(user);
 
 				LG.debug("Succes de la recuperation du commentaire");
-
+				response.setValid(true);
 				return response;
 
 			}
@@ -165,16 +172,31 @@ public class CommentResource {
 
 		BooleanResponse response = new BooleanResponse(); // false par defaut
 
-		if (factId == null || factId.trim().length() == 0 || userId == null
-				|| userId.trim().length() == 0) {
+		final String emptyIdMsg = new StringBuilder("Un probleme avec l'un des parametres suivants : ")
+				.append("identifiant du fait relatif au nouveau commentaire ")
+				.append("ou celui de l'utilisateur qui l'a poste")
+		.toString();
+		
+		if (factId == null  || userId == null) {
 
-			LG.debug("Un probleme avec l'un des parametres suivants : "
-					+ "identifiant du fait relatif au nouveau commentaire "
-					+ "ou celui de l'utilisateur qui l'a poste");
+			LG.debug(emptyIdMsg);
 			return response;
 		}
+		
+		if(factId.trim().isEmpty() || userId.trim().isEmpty()) {
+			
+			LG.debug(emptyIdMsg);
+			return response;
+		}
+		
 
-		if (commentContent == null || commentContent.trim().length() == 0) {
+		if (commentContent == null) {
+			LG.debug("Le commentaire doit contenir au moins un caractere. "
+					+ "Interruption de l'operation d'ajout.");
+			return response;
+		}
+		
+		if(commentContent.trim().isEmpty()) {
 			LG.debug("Le commentaire doit contenir au moins un caractere. "
 					+ "Interruption de l'operation d'ajout.");
 			return response;
