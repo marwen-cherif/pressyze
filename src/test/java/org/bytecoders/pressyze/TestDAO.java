@@ -77,6 +77,21 @@ public class TestDAO {
 	}
 	
 	
+	@Ignore @Test public void remove() {
+		FactDAO dao = new FactDAOImpl();
+		try {
+			for(Fact f : dao.findAllFacts()) {
+				
+				if(f.getDescription().contains("Description")) {
+					P.print("Suppression du fait : " + f.getId());
+					dao.removeFact(f);
+				}
+			}
+		} catch (DAOException e) {
+			
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
@@ -99,28 +114,35 @@ public class TestDAO {
 	}
 	
 	
-	@Ignore
+	
+	
+	//@Ignore
 	@Test
 	public void testFactDAO() {
 		
 		FactDAO dao = new FactDAOImpl();
-		Date now = new Date();
+		//Date now = new Date();
+		String id;
+		long value;
 		
 		for(int i = 0; i < 100; i++) {	
 			Fact fact = new Fact();
+			value = new Date().getTime() + i;
 			
-			fact.setId("" + new Date().getTime() + i);
+			id = "" + value;
+			fact.setId(id);
+			
 			Event event;
 			try {
 				event = new EventDAOImpl().findEvent("" + random(2, 10));
 				
 				fact.setDescription("Description de l'evenement " + event.getLabel());
 				
-				fact.setTimestamp(Long.valueOf(now.getTime() - 3*24*60*60*1000));
+				fact.setTimestamp(value);
 				
 				City city = new CityDAOImpl().findCity("" + random(5,24));
 				
-				User reporter = new UserDAOImpl().findUser("" + random(1,5));
+				User reporter = new UserDAOImpl().findUser("" + 1);
 				
 				fact.setReporter(reporter);
 				fact.setEvent(event);
@@ -129,7 +151,8 @@ public class TestDAO {
 				Confirmation cfr = new Confirmation();
 				Denial dnl = new Denial();
 				
-				int j = 0;
+//				int j = 0;
+				/*
 				for(User user : new UserDAOImpl().findAllUsers()) {
 					if(!user.equals(reporter)) {
 						if(j%2 == 0) {
@@ -140,12 +163,15 @@ public class TestDAO {
 						j++;
 					}
 				}
+				*/
 				
 				fact.setConfirmation(cfr);
 				fact.setDenial(dnl);
 				fact.setSpam(new Spam());
 				
 				dao.addFact(fact);
+				
+				P.print("added fact id : " + id);
 				
 			} catch (DAOException e) {
 				

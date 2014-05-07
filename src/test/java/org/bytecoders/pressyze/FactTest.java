@@ -20,7 +20,7 @@ public class FactTest {
 	@Ignore
 	@Test 
 	public void conf() {
-		
+		// http://localhost:9095/Pressyze/rest/reaction/1/139920979634792/0
 		try {
 			Fact f = new FactDAOImpl().findFact("139920979634792");
 			
@@ -30,7 +30,7 @@ public class FactTest {
 			e.printStackTrace();
 		}
 	}
-	//@Ignore
+	@Ignore
 	@Test 
 	public void testconf() {
 		// recuperer le fait 53661715ea6ad80a64103ab0

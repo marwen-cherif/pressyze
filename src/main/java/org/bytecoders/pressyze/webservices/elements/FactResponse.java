@@ -59,6 +59,24 @@ public class FactResponse {
 	
 	private String date;
 	
+	/*
+	 * ===============================
+	 * Convention de l'equipa ByteCoders :
+	 * 
+	 * 		Permet de connaitre si l'utilisateur courant (partie cliente)
+	 * 		a reagi a ce fait.
+	 * 
+	 * 		Les valeurs prévue :
+	 * 
+	 * 			- 0 	: aucune reaction et le fait n'appartient pas egalement a l'utilisateur 
+	 * 			- 1 	: confirmation
+	 * 			- 2 	: reniement
+	 * 			- 3		: spam
+	 * 			- 4 	: l'utilisateur a lui meme publié ce fait (pas de droit de reaction)
+	 */
+	private int reaction = 0;
+	
+	
 	@XmlElement
 	public String getDate() {
 		return date;
@@ -129,6 +147,15 @@ public class FactResponse {
 
 	public void setSpams(long spams) {
 		this.spams = spams;
+	}
+
+	@XmlElement
+	public int getReaction() {
+		return reaction;
+	}
+
+	public void setReaction(int reaction) {
+		this.reaction = reaction;
 	}
 	
 	

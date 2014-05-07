@@ -1,39 +1,37 @@
-
 /*
- //	Le présent fichier fait partie du projet PRESSYZE, une application se proposant 
- //	d'encourager le journalisme citoyen et permettant d'avoir une vue globale 
- // sur les évènements se déroulant sur le sol tunisien.
- //
- //
- //	Ce projet entre dans le cadre du concours Java Developer Challenge (Edition 2014) 
- // organisé par ESPRIT JAVA USER GROUP qui met le focus sur les dernières technologies du monde Java.
- //
- // Ce projet a été réalisé par l'équipe << ByteCoders >> composée des élèves ingénieurs suivants :
- //
- //		- Mohamed Chehaibi
- //		- Mohamed Ali Ben Lassoued
- //		- Mohamed Melki
- //		- Marwen Chrif
- //		- Nabil Andriantomanga
- //
- //	Les technologies utilisées sont essentiellement :
- //
- //	AngularJS : un framework JavaScript proposé par Google et présente une méthodologie innovante 
- // et adaptée au monde de l'industrie, facilite la réalisation des applications mono-page 
- //	et permet la mise en place de plusieurs patrons de conception dont l'MVC.
- //
- //
- //	Mongo DB : SGBD NoSQL orientée documents répartissable sur un nombre quelconque d'ordinateurs.
- //
- //	REST JAX-RS 2.8 (Jersey Implementation) : Java API for RESTful Web Services est une interface 
- // de programmation Java permettant de créer des services Web avec une architecture REST.
- //
- //	Apache Tomcat 7.0.42 : Serveur d'application Java EE.
- //
- //	Maven 3.1 : système de gestion et d'automatisation de production des projets logiciels 
- // Java en général et Java EE en particulier.
-  
- //
+// Le présent fichier fait partie du projet PRESSYZE, une application se proposant
+// d'encourager le journalisme citoyen et permettant d'avoir une vue globale
+// sur les évènements se déroulant sur le sol tunisien.
+//
+//
+// Ce projet entre dans le cadre du concours Java Developer Challenge (Edition 2014)
+// organisé par ESPRIT JAVA USER GROUP qui met le focus sur les dernières technologies du monde Java.
+//
+// Ce projet a été réalisé par l'équipe << ByteCoders >> composée des élèves ingénieurs suivants :
+//
+// - Mohamed Chehaibi
+// - Mohamed Ali Ben Lassoued
+// - Mohamed Melki
+// - Marwen Chrif
+// - Nabil Andriantomanga
+//
+// Les technologies utilisées sont essentiellement :
+//
+// AngularJS : un framework JavaScript proposé par Google et présente une méthodologie innovante
+// et adaptée au monde de l'industrie, facilite la réalisation des applications mono-page
+// et permet la mise en place de plusieurs patrons de conception dont l'MVC.
+//
+//
+// Mongo DB : SGBD NoSQL orientée documents répartissable sur un nombre quelconque d'ordinateurs.
+//
+// REST JAX-RS 2.8 (Jersey Implementation) : Java API for RESTful Web Services est une interface
+// de programmation Java permettant de créer des services Web avec une architecture REST.
+//
+// Apache Tomcat 7.0.42 : Serveur d'application Java EE.
+//
+// Maven 3.1 : système de gestion et d'automatisation de production des projets logiciels
+// Java en général et Java EE en particulier.
+//
  */
 package org.bytecoders.pressyze.webservices;
 
@@ -75,17 +73,72 @@ public class FactResource {
 	private static final Logger LG = LoggerFactory
 			.getLogger(FactResource.class);
 
-	// URL : http://localhost:9095/Pressyze/rest/facts/{i}
+	/**
+	 * Utilisé pour spécifier la reaction d'un utilisateur par rapport à un
+	 * fait. Cas : confirmation...
+	 */
+	private static final int FACT_CONFIRMATION = 1;
+
+	/**
+	 * Utilisé pour spécifier la reaction d'un utilisateur par rapport à un
+	 * fait. Cas : Reniement...
+	 */
+	private static final int FACT_DENIAL = 2;
+
+	/**
+	 * Utilisé pour spécifier la reaction d'un utilisateur par rapport à un
+	 * fait. Cas : spam...
+	 */
+	private static final int FACT_SPAM = 3;
+
+	/**
+	 * Utilisé pour spécifier la reaction d'un utilisateur par rapport à un
+	 * fait. Cas : proprietaire...
+	 */
+	private static final int FACT_OWNER = 4;
+
+	// URL : http://localhost:9095/Pressyze/rest/facts/{userId}/{i}
+	/**
+	 * Permet de recuperer une liste de fait
+	 * 
+	 * @param userId
+	 *            l'identifiant de l'utilisateur courant (lancant la requete au
+	 *            serveur)
+	 * @param index
+	 *            indice pour la pagination (recuperer les faits par partie)
+	 * @return la liste des faits relativement a l'index fourni
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("{i}")
+	@Path("{userId}/{i}")
 	@PermitAll
-	public List<FactResponse> getLastFacts(@PathParam("i") int index) {
-
-		LG.debug("Affichage des faits de {} jusqu'a {}", index * 10,
-				index * 10 + 10);
+	public List<FactResponse> getLastFacts(@PathParam("userId") String userId,
+			@PathParam("i") int index) {
 
 		List<FactResponse> factResponses = new ArrayList<FactResponse>();
+
+		if (index < 0) {
+			LG.debug("L'index doit etre strictement positif");
+			return factResponses;
+		}
+
+		UserDAO userDAO = new UserDAOImpl();
+		User currentUser = null;
+		try {
+			currentUser = userDAO.findUser(userId);
+		} catch (DAOException e1) {
+			e1.printStackTrace();
+		}
+
+		if (currentUser == null) {
+			LG.debug("Impossible de trouver un utilisateur ayant l'id : {}",
+					userId);
+			return factResponses;
+		}
+
+		LG.debug("Recuperation des faits de {} jusqu'a {} par {}", index * 10,
+				index * 10 + 10, currentUser.getUsername());
+
 		Set<Fact> facts;
 
 		try {
@@ -104,7 +157,7 @@ public class FactResource {
 		if (factList.size() > start) {
 
 			for (int i = start; i < factList.size() && i < start + 10; i++) {
-				
+
 				FactResponse fr = new FactResponse();
 				Fact fact = factList.get(i);
 
@@ -114,8 +167,7 @@ public class FactResource {
 				fr.setConfirmations(fact.getConfirmation().getCheckers().size());
 				fr.setDenials(fact.getDenial().getDeniers().size());
 				fr.setSpams(fact.getSpam().getDenouncers().size());
-				
-				
+
 				fr.setDescription(fact.getDescription());
 
 				UserResponse user = new UserResponse();
@@ -125,6 +177,17 @@ public class FactResource {
 				fr.setUser(user);
 				fr.setDate(PressyzeUtil.convertTime(fact.getTimestamp()));
 
+				// Gestion des reactions de l'utilisateur courant
+				if (fact.getReporter().equals(currentUser)) {
+					fr.setReaction(FACT_OWNER);
+				} else if (fact.getConfirmation().hasChecker(currentUser)) {
+					fr.setReaction(FACT_CONFIRMATION);
+				} else if (fact.getDenial().hasDenier(currentUser)) {
+					fr.setReaction(FACT_DENIAL);
+				} else if (fact.getSpam().hasDenouncer(currentUser)) {
+					fr.setReaction(FACT_SPAM);
+				}
+
 				factResponses.add(fr);
 			}
 		}
@@ -132,7 +195,18 @@ public class FactResource {
 		return factResponses;
 	}
 
-	// URL : http://localhost:9095/Pressyze/rest/facts/add/{userId}/{eventId}/{description}/{cityId}/{date}
+	// URL :
+	// http://localhost:9095/Pressyze/rest/facts/add/{userId}/{eventId}/{description}/{cityId}/{date}
+	/**
+	 * Permet d'ajouter un nouveau fait 
+	 * 
+	 * @param userId l' identifiant de celui qui publie le fait
+	 * @param eventId l'identifiant de l'evenement associe
+	 * @param description la description de l'evenement
+	 * @param cityId l'idendifiant de la ville ou s'est deroule l'evenement
+	 * @param date date de l'evenement
+	 * @return true si succes de l'ajout 
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/add/{userId}/{eventId}/{description}/{cityId}/{date}")
@@ -149,10 +223,10 @@ public class FactResource {
 
 		UserDAO userDAO = new UserDAOImpl();
 		try {
-			
+
 			User user = userDAO.findUser(userId);
 			if (user == null) {
-				
+
 				response.setValue(false);
 				LG.debug("Utilisateur inexistant");
 				return response;
@@ -160,7 +234,7 @@ public class FactResource {
 			} else {
 				fact.setReporter(user);
 			}
-			
+
 		} catch (DAOException e) {
 
 			e.printStackTrace();
@@ -172,11 +246,11 @@ public class FactResource {
 		try {
 			Event event = eventDAO.findEvent(eventId);
 			if (event == null) {
-				
+
 				response.setValue(false);
 				LG.debug("Evenement inexistant");
 				return response;
-				
+
 			} else {
 				fact.setEvent(event);
 			}
@@ -192,18 +266,18 @@ public class FactResource {
 		CityDAO cityDAO = new CityDAOImpl();
 
 		try {
-			
+
 			City city = cityDAO.findCity(cityId);
 			if (city == null) {
-				
+
 				response.setValue(false);
 				LG.debug("Ville inexistante");
 				return response;
-				
+
 			} else {
 				fact.setCity(city);
 			}
-			
+
 		} catch (DAOException e) {
 
 			e.printStackTrace();
@@ -214,7 +288,7 @@ public class FactResource {
 		fact.setTimestamp(PressyzeUtil.toDate(date).getTime());
 
 		try {
-			
+
 			factDAO.addFact(fact);
 			LG.debug("Nouveau fait enregistre");
 
@@ -227,8 +301,6 @@ public class FactResource {
 		return response;
 	}
 
-	
-	
 	/**
 	 * 
 	 * @param value
