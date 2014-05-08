@@ -3,13 +3,9 @@ PressYze
 
 ## Par l'équipe ByteCoders
 
-Le code source ci-dessus constitue le Module du projet PRESSYZE de l'equipe de développement BYTECODERS : application se proposant d'encourager le journalisme citoyen et de permettre d'avoir une vue globale sur les évènements se déroulant sur le sol tunisien. Ce projet entre dans le cadre du concours de développement Java Developer Challenge organisé par ESPRIT JAVA USER GROUP. Edition 2014.
+Le code source ci-dessus constitue le Module du projet PRESSYZE de l'equipe de développement BYTECODERS.
 
-
-Nous vous présentons le projet PRESSYZE, une application se proposant
-d'encourager le journalisme citoyen et permettant d'avoir une vue globale
-sur les évènements se déroulant sur le sol tunisien.
-
+Il s'agit d'une application se proposant d'encourager le journalisme citoyen et de permettre d'avoir une vue globale sur les évènements se déroulant sur le sol tunisien.
 
  Ce projet entre dans le cadre du concours Java Developer Challenge (Edition 2014)
  organisé par ESPRIT JAVA USER GROUP qui met le focus sur les dernières technologies du monde Java.
