@@ -14,7 +14,7 @@ sur les évènements se déroulant sur le sol tunisien.
  Ce projet entre dans le cadre du concours Java Developer Challenge (Edition 2014)
  organisé par ESPRIT JAVA USER GROUP qui met le focus sur les dernières technologies du monde Java.
 
- Ce projet a été réalisé par l'équipe << ByteCoders >> composée des élèves ingénieurs suivants :
+ Ce projet a été réalisé par l'équipe ** ByteCoders ** composée des élèves ingénieurs suivants :
  
  - Mohamed Chehaibi
  - Mohamed Ali Ben Lassoued
@@ -24,7 +24,7 @@ sur les évènements se déroulant sur le sol tunisien.
  
   Les technologies utilisées sont essentiellement :
  
-  AngularJS : un framework JavaScript proposé par Google et présente une méthodologie innovante
+  [AngularJS](https://angularjs.org/) : un framework JavaScript proposé par Google et présente une méthodologie innovante
   et adaptée au monde de l'industrie, facilite la réalisation des applications mono-page
   et permet la mise en place de plusieurs patrons de conception dont l'MVC.
  
