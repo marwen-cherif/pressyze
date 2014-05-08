@@ -1,4 +1,4 @@
-pressyze
+PressYze
 ========
 
 ## Par l'équipe ByteCoders
